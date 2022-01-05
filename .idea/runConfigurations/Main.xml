@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="MAIN_CLASS_NAME" value="zad1.Main" />
+    <module name="WDP4_BV_PD3750" />
+    <option name="PROGRAM_PARAMETERS" value="&quot;ala ma kota, ale  ma psa.psa.hopsa. psa kota psa ma ala&quot; psa" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="zad1.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

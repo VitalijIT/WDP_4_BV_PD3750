@@ -12,11 +12,11 @@ import java.util.List;
 
 public class Main {
   public static void main(String[] args) {
-//    ConsoleReader reader = new ConsoleReader();
-//    String str = reader.readString("Wprowadź text");
-//    String findStr = reader.readString("Wprowadź podstring dla wyszukania");
-    String str = "ala ma kota, ale  ma psa.psa.hopsa. psa kota psa ma ala";
-    String findStr = "sto";
+
+    if (args.length < 2) syntax();
+
+    String str = args[0]; // "ala ma kota, ale  ma psa.psa.hopsa. psa kota psa ma ala";
+    String findStr = args[1]; // "sto";
     int strLength = str.length();
 
     System.out.println(strLength); // n1
@@ -27,11 +27,8 @@ public class Main {
 
     System.out.println(str.substring(4, strLength - 1)); // n4
 
-    str = "podstoleczne tramwaje mialy postoje po sto razy dziennie";
     SubstringCounter sCounter = new SubstringCounter();
     System.out.println(sCounter.countSubstrings(str, findStr)); // n5
-
-    str = "ala ma kota, ale  ma psa.psa.hopsa. psa kota psa ma ala";
 
     StringTransformer strTransformer = new StringTransformer();
     String[] strArr = strTransformer.transformStringToArray(str);
@@ -39,5 +36,10 @@ public class Main {
 
     System.out.println(strArr[0].equals(strArr[strArr.length - 1])); // n7
 
+  }
+
+  static void syntax() {
+    System.out.println("Syntax: ... ");
+    System.exit(1);
   }
 }
