@@ -1,46 +1,47 @@
 package zad3;
 
+import zad3.Flowers.Flower;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Box {
-  Customer owner;
-  List<Flower> box = new ArrayList<>();
-  PriceList pl = PriceList.getInstance();
 
-  public Box(Customer customer) {
-    this.owner = customer;
-  }
+    private final Customer owner;
+    private final List<Flower> box = new ArrayList<>();
+    private final PriceList pl = PriceList.getInstance();
 
-  public int getFlowersByColor(String color) {
-    if (color != null && !box.isEmpty()) {
-      for (int i = 0; i < box.size(); i++) {
-        Flower flower = box.get(i);
-        if(flower.getColor().equals(color)) {
-          return (int) (flower.getAmount() * pl.getPrice(flower.getName()));
+    public Box(Customer customer) {
+        this.owner = customer;
+    }
+
+    public int getFlowersCostByColor(String color) {
+        if (color != null && !box.isEmpty()) {
+            return box.stream()
+                    .filter(flower -> flower.getColor().equals(color))
+                    .map(flower -> (int) (flower.getAmount() * pl.getPrice(flower.getName())))
+                    .mapToInt(Integer::intValue)
+                    .sum();
         }
-      }
-    }
-    return -1;
-  }
-
-  public void pack(List<Flower> flowers) {
-    box.addAll(flowers);
-  }
-
-  // TODO use from extended (abstract if it's possible) shoppingCart
-  @Override
-  public String toString() {
-    StringBuilder text = new StringBuilder("Pudełko własciciel " + owner.getName());
-    int cartSize = box.size();
-    if (cartSize == 0) return text + " -- pusto";
-
-    for(int i = 0; i < cartSize; i++) {
-      Flower flowerInCart = box.get(i);
-      String flowerString = flowerInCart.toString() + ", cena " + pl.getPrice(flowerInCart.getName());
-      text.append(System.lineSeparator()).append(flowerString);
+        return -1;
     }
 
-    return text.toString();
-  }
+    public void pack(List<Flower> flowers) {
+        box.addAll(flowers);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder text = new StringBuilder("Pudełko własciciel " + owner.getName());
+        if (box.isEmpty()) {
+            return text + " -- pusto";
+        }
+
+        for (Flower flowerInCart : box) {
+            String flowerString = flowerInCart.toString() + ", cena " + pl.getPrice(flowerInCart.getName());
+            text.append(System.lineSeparator()).append(flowerString);
+        }
+
+        return text.toString();
+    }
 }

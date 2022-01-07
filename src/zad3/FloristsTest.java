@@ -7,11 +7,16 @@
 package zad3;
 
 
+import zad3.Flowers.Freesia;
+import zad3.Flowers.Lilac;
+import zad3.Flowers.Peony;
+import zad3.Flowers.Rose;
+
 public class FloristsTest {
   // definicja metody sumowania wartosci kwiatów o podanym kolorze
   static int valueOf(Box box, String color) {
-       /*<- tu trzeba wpisac kod metody */ // найти в корзине цветы опр цвета
-    return box.getFlowersByColor(color);
+       /*<- tu trzeba wpisac kod metody */
+    return box.getFlowersCostByColor(color);
   }
 
   public static void main(String[] args) {

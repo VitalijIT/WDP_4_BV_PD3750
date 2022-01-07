@@ -1,54 +1,57 @@
 package zad3;
 
+import zad3.Flowers.Flower;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ShoppingCart {
-  private List<Flower> shoppingCart = new ArrayList<>();
-  private Customer owner;
-  PriceList pl = PriceList.getInstance();
 
-  public ShoppingCart (Customer owner) {
-    this.owner = owner;
-  }
+    private List<Flower> shoppingCart = new ArrayList<>();
+    private final Customer owner;
+    private final PriceList priceList = PriceList.getInstance();
 
-  public void addToShoppingCart(Flower flower) { // todo add method to add roze to roze
-    this.shoppingCart.add(flower);
-  }
-
-  public void deleteFromShoppingCart(String flowerName) {
-    shoppingCart = shoppingCart.stream()
-            .filter(a -> !Objects.equals(a.getName(), flowerName))
-            .collect(Collectors.toList());
-  }
-
-  public List<Flower> getShoppingCart() {
-    return shoppingCart;
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder text = new StringBuilder("Wózek własciciel " + owner.getName());
-    int cartSize = shoppingCart.size();
-    if (cartSize == 0) return text + " -- pusto";
-
-    for(int i = 0; i < cartSize; i++) {
-      Flower flowerInCart = shoppingCart.get(i);
-      String flowerString = flowerInCart.toString() + ", cena " + pl.getPrice(flowerInCart.getName());
-      text.append(System.lineSeparator()).append(flowerString);
+    public ShoppingCart(Customer owner) {
+        this.owner = owner;
     }
 
-    return text.toString();
-  }
+    public void addToShoppingCart(Flower flower) {
+        this.shoppingCart.add(flower);
+    }
 
-  public Double getCost(Flower flower) {
-    double flowerPrice = pl.getPrice(flower.getName());
-    return flowerPrice == -1 ? null : flower.getAmount() * pl.getPrice(flower.getName());
-  }
+    public void deleteFromShoppingCart(String flowerName) {
+        shoppingCart = shoppingCart.stream()
+                .filter(flower -> !flower.getName().equals(flowerName))
+                .collect(Collectors.toList());
+    }
 
-  public void empty() {
-    shoppingCart.clear();
-  }
+    public List<Flower> getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public Double getCost(Flower flower) {
+        double flowerPrice = priceList.getPrice(flower.getName());
+        return flowerPrice == -1 ? null : flower.getAmount() * priceList.getPrice(flower.getName());
+    }
+
+    public void empty() {
+        shoppingCart.clear();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder text = new StringBuilder("Wózek własciciel " + owner.getName());
+
+        if (shoppingCart.isEmpty()) {
+            return text + " -- pusto";
+        }
+
+        for (Flower flowerInCart : shoppingCart) {
+            String flowerString = flowerInCart.toString() + ", cena " + priceList.getPrice(flowerInCart.getName());
+            text.append(System.lineSeparator()).append(flowerString);
+        }
+
+        return text.toString();
+    }
 }
