@@ -1,19 +1,18 @@
 package zad3;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Customer {
   private String name;
   private double wallet;
-  ShoppingCart shoppingCart;
-  PriceList pl;
-  Box box;
+  private final ShoppingCart shoppingCart;
+  private Box box;
 
   public Customer (String name, double wallet) {
     this.name = name;
     this.wallet = wallet;
     shoppingCart = new ShoppingCart(this);
-    pl = PriceList.getInstance();
   }
 
   public void get(Flower flower) {
@@ -29,9 +28,9 @@ public class Customer {
 
     for(int i = 0; i < flowers.size(); i++) {
       Flower flower = flowers.get(i);
-      double flowerCost = shoppingCart.getCost(flower);
+      Double flowerCost = shoppingCart.getCost(flower);
 
-      if(flowerCost != -1 && wallet >= flowerCost) {
+      if( flowerCost != null && wallet >= flowerCost) {
         wallet -= flowerCost;
       } else {
         shoppingCart.deleteFromShoppingCart(flower.getName());

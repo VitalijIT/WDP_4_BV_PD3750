@@ -31,16 +31,16 @@ public class Box {
   // TODO use from extended (abstract if it's possible) shoppingCart
   @Override
   public String toString() {
-    String text = "Wózek własciciel " + owner.getName();
-    Integer cartSize = box.size();
+    StringBuilder text = new StringBuilder("Pudełko własciciel " + owner.getName());
+    int cartSize = box.size();
     if (cartSize == 0) return text + " -- pusto";
 
     for(int i = 0; i < cartSize; i++) {
       Flower flowerInCart = box.get(i);
       String flowerString = flowerInCart.toString() + ", cena " + pl.getPrice(flowerInCart.getName());
-      text = text + System.lineSeparator() + flowerString;
+      text.append(System.lineSeparator()).append(flowerString);
     }
 
-    return text;
+    return text.toString();
   }
 }

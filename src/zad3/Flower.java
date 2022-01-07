@@ -5,8 +5,10 @@ public abstract class Flower {
   private String color;
   private String name;
 
-  public Flower (int amount) {
+  public Flower (int amount, String name, String color) {
     this.amount = amount;
+    this.name = name;
+    this.color = color;
   }
 
   @Override
@@ -16,11 +18,11 @@ public abstract class Flower {
 
   public Integer getAmount() {
     return amount;
-  };
+  }
 
   public String getName() {
     return name;
-  };
+  }
 
 
   public String getColor() {

@@ -12,7 +12,6 @@ public class ShoppingCart {
 
   public ShoppingCart (Customer owner) {
     this.owner = owner;
-//    PriceList pl;
   }
 
   public void addToShoppingCart(Flower flower) { // todo add method to add roze to roze
@@ -20,8 +19,8 @@ public class ShoppingCart {
   }
 
   public void deleteFromShoppingCart(String flowerName) {
-    shoppingCart.stream()
-            .filter(a -> Objects.equals(a.getName(), flowerName))
+    shoppingCart = shoppingCart.stream()
+            .filter(a -> !Objects.equals(a.getName(), flowerName))
             .collect(Collectors.toList());
   }
 
@@ -31,22 +30,22 @@ public class ShoppingCart {
 
   @Override
   public String toString() {
-    String text = "Wózek własciciel " + owner.getName();
-    Integer cartSize = shoppingCart.size();
+    StringBuilder text = new StringBuilder("Wózek własciciel " + owner.getName());
+    int cartSize = shoppingCart.size();
     if (cartSize == 0) return text + " -- pusto";
 
     for(int i = 0; i < cartSize; i++) {
       Flower flowerInCart = shoppingCart.get(i);
       String flowerString = flowerInCart.toString() + ", cena " + pl.getPrice(flowerInCart.getName());
-      text = text + System.lineSeparator() + flowerString;
+      text.append(System.lineSeparator()).append(flowerString);
     }
 
-    return text;
+    return text.toString();
   }
 
   public Double getCost(Flower flower) {
     double flowerPrice = pl.getPrice(flower.getName());
-    return flowerPrice == -1 ? -1 : flower.getAmount() * pl.getPrice(flower.getName());
+    return flowerPrice == -1 ? null : flower.getAmount() * pl.getPrice(flower.getName());
   }
 
   public void empty() {
